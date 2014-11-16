@@ -1,0 +1,108 @@
+---
+title: "Reproducible Research: Peer Assessment 1"
+author: "Gerard Lopez"
+date: "Sunday, November 16, 2014"
+output: 
+  html_document:
+    keep_md: true
+---
+
+
+```{r setoptions, echo=TRUE}
+opts_chunk$set(echo=FALSE)
+```
+
+## Loading and preprocessing the data
+```{r}
+library("lattice")
+library("lubridate")
+library("ggplot2" )
+
+rm(StepsByDay, StepsByDayMean, StepsByDayMedian, StepsByInterval, timeInterval)
+
+unzip("activity.zip", overwrite=TRUE)
+stepData <- read.csv("activity.csv", colClasses=c('integer','character', 'integer'))
+# stepData$timeIntervalText <- formatC(stepData$interval, width = 4, format="d", flag ="0")
+# stepData$timeInterval <- strptime(formatC(stepData$interval, width = 4, format="d", flag ="0"), "%H%M")
+stepData$timeInterval <- as.POSIXct(strptime(formatC(stepData$interval, width = 4, format="d", flag ="0"), "%H%M"))
+
+
+# timeInterval <-  formatC(stepData$interval, width = 4, format="d", flag ="0")
+# timeInterval <- strptime(timeInterval, "%H%M")
+# 
+# 
+# timeInterval <-  formatC(stepData$interval, width = 4, format="d", flag ="0")
+# 
+# 
+# timeInterval <- strptime(formatC(stepData$interval, width = 4, format="d", flag ="0"), "%H%M")
+# stepData$timeInterval <- strptime(formatC(stepData$interval, width = 4, format="d", flag ="0"), "%H%M")
+
+```
+## What is mean total number of steps taken per day?
+
+```{r}
+StepsByDay <- by(stepData$steps, stepData$date, FUN=sum)
+
+hist(StepsByDay)
+StepsByDayMean <- mean(StepsByDay, na.rm = TRUE)
+StepsByDayMedian <- median(StepsByDay, na.rm = TRUE)
+
+```
+
+
+## What is the average daily activity pattern?
+
+```{r}
+# StepsByInterval<- by(stepData$steps, as.char(stepData$timeInterval), FUN=mean)
+# StepsByInterval<- by(stepData$steps, (stepData$timeIntervalText), FUN=mean, na.rm= TRUE)
+
+# time as text
+# StepsByInterval<- aggregate(stepData$steps, list(Interval=stepData$timeIntervalText), mean, na.rm= TRUE)
+
+
+
+
+# time as time  this one works!!
+StepsByInterval<- aggregate(stepData$steps, list(Interval=stepData$timeInterval), mean, na.rm= TRUE)
+colnames(StepsByInterval)[2] <- "Steps"
+xyplot( StepsByInterval$Steps ~ Interval, data=StepsByInterval, type = "l")
+
+
+xyplot( StepsByInterval$Steps ~ Interval, data=StepsByInterval, type = "l")
+
+##ggplot
+
+ggplot(data=StepsByInterval,aes(x=Interval, y=Steps)) + 
+  geom_path(colour="red") + 
+  ylab("Average steps") + 
+  xlab("5 Interval") + 
+  opts(title="Steps by Interval") 
+
+
+
+# 
+# xyplot( StepsByInterval$Steps ~ strptime(StepsByInterval$Interval, "%H%M") , data=StepsByInterval, type = "l")
+# 
+# 
+# xyplot( as.character(strptime(StepsByInterval$Interval, "%H%M")) ~ StepsByInterval$Steps  , data=StepsByInterval, type = "l")
+# 
+
+
+
+```
+
+
+## Imputing missing values
+
+```{r}
+
+```
+
+
+
+## Are there differences in activity patterns between weekdays and weekends?
+
+```{r}
+
+```
+
