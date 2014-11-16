@@ -127,13 +127,19 @@ ImputedData$x <- NULL
 
 
 ```{r}
-
+# ImputedData is that dataset, right?
 ```
 
 4. Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day. Do these values differ from the estimates from the first part of the assignment? What is the impact of imputing missing data on the estimates of the total daily number of steps?
 
 
 ```{r}
+StepsByDayImputed <- by(ImputedData$steps, ImputedData$date, FUN=sum)
+
+hist(StepsByDayImputed)
+
+StepsByDayImputedMean <- mean(StepsByDayImputed, na.rm = FALSE)
+StepsByDayImputedMedian <- median(StepsByDayImputed, na.rm = FALSE)
 
 ```
 
@@ -145,6 +151,7 @@ ImputedData$x <- NULL
 
 
 ```{r}
+ImputedData$weekday = factor(ifelse(weekdays(as.Date(ImputedData$date)) %in% c("Saturday","Sunday"), "weekend", "weekday"))
 
 ```
 
