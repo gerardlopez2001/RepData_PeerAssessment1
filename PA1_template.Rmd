@@ -9,6 +9,7 @@ output:
 
 
 ```{r setoptions, echo=TRUE}
+library("knitr")
 opts_chunk$set(echo=FALSE)
 ```
 
@@ -99,16 +100,12 @@ rowsWithNAs <- nrow(stepData[!complete.cases(stepData),])
 
 ```{r}
 
-One option:
+
 
 # For each thing, make some kind of aggregate calculation
         #StepsByInterval already does this, but has interval as a time...need to put it back as it was.
 temp <-  StepsByInterval
 temp$new <- as.integer(strftime(temp$interval, "%H%M") )
-
-
-
-
         
 # Merge the aggregate number back into the original data as a new imputation column based on a link between individual thing instances and the aggregate thing instance
 
@@ -156,9 +153,17 @@ ImputedData$weekday = factor(ifelse(weekdays(as.Date(ImputedData$date)) %in% c("
 ```
 
 
-2. Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). See the README file in the GitHub repository to see an example of what this plot should look like using simulated data.
+2. A panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis).
 
 ```{r}
+
+xyplot(ImputedData$steps ~ ImputedData$timeInterval | ImputedData$weekday, layout = c(1,2), type = "l"
+        , xlab = "Interval", ylab = "Number of Steps"
+         , xlim=c(as.POSIXct(beginning),as.POSIXct(ending))
+        , scales = list(tck=c(1,0),
+                        x=list(tick.number = 24, cex=0.8, rot=90, format="%H:%M"),
+                        y=list(tick.number = 5))
+        , main = "Average Number of Steps During 5 Minute Intervals Over 24 Hours")
 
 ```
 
