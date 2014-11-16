@@ -67,9 +67,23 @@ StepsByInterval<- aggregate(stepData$steps, list(Interval=stepData$timeInterval)
 colnames(StepsByInterval)[2] <- "Steps"
 xyplot( StepsByInterval$Steps ~ Interval, data=StepsByInterval, type = "l")
 
+beginning <- format(as.POSIXct(paste(Sys.Date(),"00:00")), format="%Y-%m-%d %H:%M")
+ending <- format((as.POSIXct(paste(Sys.Date(),"00:00")) + 24*60*60), format="%Y-%m-%d %H:%M")
 
-xyplot( StepsByInterval$Steps ~ Interval, data=StepsByInterval, type = "l")
 
+xyplot( StepsByInterval$Steps ~ Interval, data=StepsByInterval, type = "l"
+        , xlab = "Time", ylab = "Average # of Steps"
+#         , xlim=c(as.POSIXct("2014/11/16"),as.POSIXct("2014/11/17"))
+        , xlim=c(as.POSIXct(beginning),as.POSIXct(ending))
+        , ylim=c(0,225)
+        , scales = list(tck=c(1,0),
+                        x=list(tick.number = 24, cex=0.8, rot=90, format="%H:%M"),
+                        y=list(tick.number = 5))
+        , main = "Average Number of Steps by 5 Minute Intervals Over 24 Hours"
+        )
+
+
+format(as.POSIXct(paste(Sys.Date(),"00:00")), format="%Y-%m-%d %H:%M")
 ##ggplot
 
 ggplot(data=StepsByInterval,aes(x=Interval, y=Steps)) + 
