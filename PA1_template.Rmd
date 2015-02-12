@@ -1,7 +1,7 @@
 ---
 title: "Reproducible Research: Peer Assessment 1"
 author: "Gerard Lopez"
-date: "Sunday, November 16, 2014"
+date: "Sunday, February 15, 2015"
 output: 
   html_document:
     keep_md: true

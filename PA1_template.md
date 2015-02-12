@@ -1,6 +1,6 @@
 # Reproducible Research: Peer Assessment 1
 Gerard Lopez  
-Sunday, November 16, 2014  
+Sunday, February 15, 2015  
 
 
 
@@ -33,7 +33,7 @@ StepsByDay <- by(stepData$steps, stepData$date, FUN=sum)
 hist(StepsByDay)
 ```
 
-![plot of chunk unnamed-chunk-2](./PA1_template_files/figure-html/unnamed-chunk-2.png) 
+![](PA1_template_files/figure-html/unnamed-chunk-2-1.png) 
 
 
 2. Calculate and report the mean and median total number of steps taken per day
@@ -44,7 +44,7 @@ StepsByDayMean <- mean(StepsByDay, na.rm = TRUE)
 StepsByDayMedian <- median(StepsByDay, na.rm = TRUE)
 ```
 
-The mean total number of steps taken per day is 1.0766 &times; 10<sup>4</sup>.
+The mean total number of steps taken per day is 1.0766189\times 10^{4}.
 
 The median total number of steps taken per day is 10765.
 
@@ -72,7 +72,7 @@ xyplot( x ~ timeInterval, data=StepsByInterval, type = "l"
         )
 ```
 
-![plot of chunk unnamed-chunk-4](./PA1_template_files/figure-html/unnamed-chunk-4.png) 
+![](PA1_template_files/figure-html/unnamed-chunk-4-1.png) 
 
 ```r
 #
@@ -145,16 +145,16 @@ StepsByDayImputed <- by(ImputedData$steps, ImputedData$date, FUN=sum)
 hist(StepsByDayImputed)
 ```
 
-![plot of chunk unnamed-chunk-9](./PA1_template_files/figure-html/unnamed-chunk-9.png) 
+![](PA1_template_files/figure-html/unnamed-chunk-9-1.png) 
 
 ```r
 StepsByDayImputedMean <- mean(StepsByDayImputed, na.rm = FALSE)
 StepsByDayImputedMedian <- median(StepsByDayImputed, na.rm = FALSE)
 ```
 
-The mean total number of steps taken per day in the imputed data is 1.0766 &times; 10<sup>4</sup>.
+The mean total number of steps taken per day in the imputed data is 1.0766189\times 10^{4}.
 
-The median total number of steps taken per day in the imputed data is 1.0766 &times; 10<sup>4</sup>.
+The median total number of steps taken per day in the imputed data is 1.0766189\times 10^{4}.
 
 These values are fairly similar to the estimates from the first part of this assignment.
 
@@ -184,4 +184,4 @@ xyplot(ImputedData$steps ~ ImputedData$timeInterval | ImputedData$weekday, layou
         , main = "Average Number of Steps During 5 Minute Intervals Over 24 Hours")
 ```
 
-![plot of chunk unnamed-chunk-11](./PA1_template_files/figure-html/unnamed-chunk-11.png) 
+![](PA1_template_files/figure-html/unnamed-chunk-11-1.png) 
